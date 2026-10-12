@@ -37,10 +37,13 @@ jobs:
           echo "نسخه: [$VERSION_DIR]"
           mkdir -p ~/.local/share/godot/export_templates/$VERSION_DIR
           mv templates/* ~/.local/share/godot/export_templates/$VERSION_DIR/
+          echo "=== محتوای پوشه تمپلیت ==="
+          ls ~/.local/share/godot/export_templates/$VERSION_DIR/ | head -10
 
       - name: Setup Android SDK
         run: |
           echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=$HOME/android-sdk" >> $GITHUB_ENV
           mkdir -p $HOME/android-sdk/cmdline-tools
           cd /tmp
           wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
@@ -49,6 +52,8 @@ jobs:
           echo "$HOME/android-sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
           yes | $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses || true
           $HOME/android-sdk/cmdline-tools/latest/bin/sdkmanager "platform-tools" "build-tools;34.0.0" "platforms;android-34" || true
+          echo "=== SDK نصب شد ==="
+          ls $HOME/android-sdk/
 
       - name: Setup Godot Editor Settings
         run: |
@@ -70,14 +75,26 @@ jobs:
             -keyalg RSA -keysize 2048 -validity 10000 \
             -dname "CN=Android Debug,O=Android,C=US"
 
+      - name: Show project structure
+        run: |
+          echo "=== ریشه پروژه ==="
+          ls -la
+          echo "=== محتوای project.godot ==="
+          cat project.godot | head -30
+          echo "=== صحنه‌ها ==="
+          find . -name "*.tscn" -not -path "./.git/*" -not -path "./.godot/*"
+
       - name: Generate .godot cache
         run: |
           timeout 180 godot --headless --path . --import 2>&1 || true
+          echo "=== پوشه .godot ==="
+          ls -la .godot/ 2>&1 | head -10
 
       - name: Export APK
         run: |
           mkdir -p builds/android
           godot --headless --path . --export-debug "Android" builds/android/game.apk
+          echo "=== فایل‌های ساخته شده ==="
           ls -la builds/android/
 
       - name: Upload APK
