@@ -1,0 +1,171 @@
+[gd_scene load_steps=15 format=3 uid="uid://ctouchcontrolsnaftkesh"]
+
+[ext_resource type="Script" path="res://scripts/touch_controls.gd" id="1_touch"]
+
+[sub_resource type="Gradient" id="Gradient_fire"]
+colors = PackedColorArray(1, 0.2, 0.2, 0.85, 0.8, 0.1, 0.1, 0.6)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_fire"]
+gradient = SubResource("Gradient_fire")
+width = 160
+height = 160
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_reload"]
+colors = PackedColorArray(1, 0.8, 0.2, 0.85, 0.8, 0.6, 0.1, 0.6)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_reload"]
+gradient = SubResource("Gradient_reload")
+width = 120
+height = 120
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_aim"]
+colors = PackedColorArray(0.2, 0.6, 1, 0.85, 0.1, 0.4, 0.8, 0.6)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aim"]
+gradient = SubResource("Gradient_aim")
+width = 130
+height = 130
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_sprint"]
+colors = PackedColorArray(0.3, 1, 0.4, 0.85, 0.1, 0.7, 0.2, 0.6)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sprint"]
+gradient = SubResource("Gradient_sprint")
+width = 120
+height = 120
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_interact"]
+colors = PackedColorArray(1, 0.9, 0.3, 0.85, 0.8, 0.7, 0.1, 0.6)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_interact"]
+gradient = SubResource("Gradient_interact")
+width = 120
+height = 120
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_pause"]
+colors = PackedColorArray(0.9, 0.9, 0.9, 0.8, 0.5, 0.5, 0.5, 0.6)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pause"]
+gradient = SubResource("Gradient_pause")
+width = 90
+height = 90
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_joystick_base"]
+bg_color = Color(0.15, 0.2, 0.3, 0.35)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.6, 0.8, 1, 0.5)
+corner_radius_top_left = 110
+corner_radius_top_right = 110
+corner_radius_bottom_right = 110
+corner_radius_bottom_left = 110
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_joystick_knob"]
+bg_color = Color(0.4, 0.7, 1, 0.7)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.9, 0.95, 1, 0.9)
+corner_radius_top_left = 45
+corner_radius_top_right = 45
+corner_radius_bottom_right = 45
+corner_radius_bottom_left = 45
+
+[node name="TouchControls" type="CanvasLayer"]
+script = ExtResource("1_touch")
+
+[node name="JoystickBase" type="Panel" parent="."]
+offset_left = 60.0
+offset_top = 440.0
+offset_right = 280.0
+offset_bottom = 660.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_joystick_base")
+
+[node name="Knob" type="Panel" parent="JoystickBase"]
+offset_left = 65.0
+offset_top = 65.0
+offset_right = 155.0
+offset_bottom = 155.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_joystick_knob")
+
+[node name="LookArea" type="Control" parent="."]
+offset_left = 320.0
+offset_top = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="FireButton" type="TouchScreenButton" parent="."]
+offset_left = 1090.0
+offset_top = 500.0
+offset_right = 1230.0
+offset_bottom = 640.0
+texture_normal = SubResource("GradientTexture2D_fire")
+texture_pressed = SubResource("GradientTexture2D_fire")
+action = "fire"
+
+[node name="ReloadButton" type="TouchScreenButton" parent="."]
+offset_left = 1030.0
+offset_top = 370.0
+offset_right = 1140.0
+offset_bottom = 480.0
+texture_normal = SubResource("GradientTexture2D_reload")
+texture_pressed = SubResource("GradientTexture2D_reload")
+action = "reload"
+
+[node name="AimButton" type="TouchScreenButton" parent="."]
+offset_left = 940.0
+offset_top = 490.0
+offset_right = 1070.0
+offset_bottom = 620.0
+texture_normal = SubResource("GradientTexture2D_aim")
+texture_pressed = SubResource("GradientTexture2D_aim")
+action = "aim"
+
+[node name="SprintButton" type="TouchScreenButton" parent="."]
+offset_left = 1150.0
+offset_top = 340.0
+offset_right = 1260.0
+offset_bottom = 450.0
+texture_normal = SubResource("GradientTexture2D_sprint")
+texture_pressed = SubResource("GradientTexture2D_sprint")
+action = "sprint"
+
+[node name="InteractButton" type="TouchScreenButton" parent="."]
+offset_left = 880.0
+offset_top = 340.0
+offset_right = 990.0
+offset_bottom = 450.0
+texture_normal = SubResource("GradientTexture2D_interact")
+texture_pressed = SubResource("GradientTexture2D_interact")
+action = "interact"
+
+[node name="PauseButton" type="TouchScreenButton" parent="."]
+offset_left = 1180.0
+offset_top = 20.0
+offset_right = 1260.0
+offset_bottom = 100.0
+texture_normal = SubResource("GradientTexture2D_pause")
+texture_pressed = SubResource("GradientTexture2D_pause")
+action = "pause"
